@@ -1,4 +1,5 @@
 from flask import Flask, request, jsonify
+import jamspell
 
 app = Flask(__name__)
 
@@ -9,10 +10,14 @@ def get_answer():
 @app.route('/process_text', methods=['POST'])
 def process_text():
     data = request.get_json()
+
     if not data or 'text' not in data:
         return jsonify({'error': 'Invalid input'}), 400
     
-    text = data['text']
+    corrector = jamspell.TSpellCorrector()
+    corrector.LoadLangModel('wiki+text/model_twiki.bin')
+    
+    text = corrector.FixFragment('Цвæр царæгай кæнæ зæйæгой нæ зæронт кæны')
     changed_text = text
 
     return jsonify({'changed_text': changed_text})
