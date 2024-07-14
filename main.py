@@ -2,7 +2,7 @@ from flask import Flask, request, jsonify
 import jamspell
 import locale
 
-locale.setlocale(locale.LC_ALL, 'en_US.UTF-8')
+locale.setlocale(locale.LC_ALL, 'en-US')
 
 app = Flask(__name__)
 
